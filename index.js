@@ -1,26 +1,43 @@
-// import "dotenv/config";
 import express from "express";
-import cors from "cors";
-import usersRoutes from "./routes/users.route.js";
-import transferRoutes from "./routes/transfer.route.js";
+import "dotenv/config";
+import { engine } from "express-handlebars";
+import fileUpload from "express-fileupload";
+import session from "express-session";
+import skatersRoutes from "./routes/skaters.route.js";
 import path from "path";
 
 const app = express();
 
-app.use(cors());
+const sessionMiddleware = session({
+  secret: process.env.SESSION_SECRET || "secret",
+  resave: false,
+  saveUninitialized: false,
+});
+
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  fileUpload({
+    limits: { fileSize: 5000000 },
+    useTempFiles: true,
+  })
+);
 
-app.use(express.static("public"));
+app.use(sessionMiddleware);
 
-app.use("/usuarios", usersRoutes);
-app.use("/transferencias", transferRoutes);
+app.engine(".hbs", engine({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+app.set("views", "./views");
 
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve("public/index.html"));
+app.use("/", skatersRoutes);
+
+app.get("*", (req, res) => {
+  res.status(404).render("error");
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Solar Bank App esta atenta en el puerto: ${PORT}`);
-});
+app.listen(PORT, () => console.log("Server running on port", PORT));

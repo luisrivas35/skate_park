@@ -1,35 +1,24 @@
-DROP TABLE IF EXISTS transferencias;
-DROP TABLE IF EXISTS usuarios;
+-- Drop the skaters table if it exists
+DROP TABLE IF EXISTS skaters;
 
-CREATE TABLE usuarios (
+CREATE TABLE skaters (
     id SERIAL PRIMARY KEY,
+    email VARCHAR(50) UNIQUE NOT NULL,
     nombre VARCHAR(50) NOT NULL,
-    balance FLOAT CHECK (balance >= 0) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    anos_experiencia INTEGER NOT NULL,
+    especialidad VARCHAR(50) NOT NULL,
+    foto VARCHAR(255) NOT NULL,
+    estado BOOLEAN DEFAULT TRUE,
+    is_admin BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE transferencias (
-    id SERIAL PRIMARY KEY,
-    emisor INT NOT NULL,
-    receptor INT NOT NULL,
-    monto FLOAT NOT NULL CHECK (monto > 0),
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (emisor) REFERENCES usuarios(id) ON DELETE CASCADE,
-    FOREIGN KEY (receptor) REFERENCES usuarios(id) ON DELETE CASCADE
-);
-
-INSERT INTO usuarios (nombre, balance) VALUES 
-('pablito', 10000),
-('juanita', 25000),
-('pedrito', 70000),
-('anita', 98000);
-
-INSERT INTO transferencias (emisor, receptor, monto, fecha) VALUES 
-(1, 2, 500, '2024-05-10 00:00:00'),
-(2, 1, 100, '2024-05-15 00:00:00'),
-(3, 1, 100, '2024-05-16 00:00:00'),
-(4, 2, 100, '2024-05-18 00:00:00');
-
-SELECT * FROM transferencias;
+INSERT INTO skaters (email, nombre, password, anos_experiencia, especialidad, foto, estado, is_admin)
+VALUES
+('tony.hawk@example.com', 'tony', '$2b$10$EkCrejtHYXSow5FbquwekOLCIjuHZn6QxoO8q7tRBifuGZxnHZml2', 5, 'Freestyle', 'assets/imgs/tony.jpg', true, false),
+('evelien@example.com', 'evelien', '$2b$10$EkCrejtHYXSow5FbquwekOLCIjuHZn6QxoO8q7tRBifuGZxnHZml2', 3, 'Street', 'assets/imgs/evelien.jpg', true, false),
+('dany@example.com', 'dany', '$2b$10$EkCrejtHYXSow5FbquwekOLCIjuHZn6QxoO8q7tRBifuGZxnHZml2', 3, 'Jumps', 'assets/imgs/danny.jpg', true, false),
+('admin@example.com', 'admin', '$2b$10$rQr6k/U.SA/Jj46UemmRaOwO1XKIdHaRYweMUPvCjnJs8wpFZ.iju', 3, 'Street', 'assets/imgs/police.jpg', true, true);
 
 
-SELECT * FROM usuarios;
+SELECT * FROM skaters;

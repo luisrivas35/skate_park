@@ -1,0 +1,6 @@
+USER_DB="avnadmin"
+PASSWORD_DB="tu_passsword"
+HOST_DB="skatepark-skatepark.f.aivencloud.com"
+PORT_DB=26046
+DATABASE_NAME="defaultdb"
+SECRET_KEY="admin"

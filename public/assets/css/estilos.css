@@ -1,0 +1,71 @@
+body {
+    background: #ffdc43; 
+    color: #4a4a4a;
+    text-shadow: 0px 0px 1px black;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 40px 100px;
+}
+
+h1 {
+    font-style: italic;
+}
+
+td, th {
+    vertical-align: middle !important;
+}
+
+td div {
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+}
+
+/* tbody tr:nth-child(1) td div {
+    background-image: url("/assets/imgs/image.jpg");
+}
+
+tbody tr:nth-child(2) td div {
+    background-image: url("/assets/imgs/Evelien.jpg");
+}
+
+tbody tr:nth-child(3) td div {
+    background-image: url("/assets/imgs/Danny.jpg");
+} */
+
+input {
+    text-align: center;
+}
+
+img {
+    max-width: 60px; 
+    max-height: 60px; 
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: none;
+    width: 16px;
+    height: 16px;
+    background-color: #007bff; 
+    border-radius: 3px;
+    position: relative;
+}
+
+input[type="checkbox"]:checked::before {
+    content: 'X'; 
+    font-size: 12px;
+    color: white; 
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
