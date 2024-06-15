@@ -12,7 +12,7 @@ const pool = new Pool({
   database: process.env.DATABASE_NAME,
   ssl: {
     rejectUnauthorized: true,
-    ca: fs.readFileSync("./.ca.pem"),
+    ca: fs.readFileSync("./ca.pem"),
   },
   allowExitOnIdle: true,
 });
